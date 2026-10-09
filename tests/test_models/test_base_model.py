@@ -4,7 +4,6 @@ import unittest
 import os
 from datetime import datetime
 from models.base_model import BaseModel
-from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -124,12 +123,14 @@ class TestBaseModel(unittest.TestCase):
 
     def test_new_instance_in_storage(self):
         """Test that a new instance is added to storage."""
+        from models import storage
         obj = BaseModel()
         key = "BaseModel.{}".format(obj.id)
         self.assertIn(key, storage.all())
 
     def test_kwargs_instance_not_in_storage(self):
         """Test that kwargs-created instance is NOT added to storage again."""
+        from models import storage
         obj = BaseModel()
         count_before = len(storage.all())
         d = obj.to_dict()
